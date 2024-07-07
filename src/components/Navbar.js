@@ -5,8 +5,10 @@ import '../styles/Navbar.css'; // Adjusted path
 const Navbar = () => {
   return (
     <div className="navbar">
-      <div className="logo">Logo</div>
+      <Link to="/" className="logo">Logo</Link>
       <div className="menu">
+        <Link to="/" className="home">Home</Link>
+        <Link to="/wastediv" className="wastediv">Waste Diversion</Link>
         <Link to="/login" className="login">Log In</Link>
       </div>
     </div>
