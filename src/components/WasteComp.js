@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
-import './styles/ChartComponent.css';
+import '../styles/WasteComp.css';
 
-const ChartComponent = () => {
+const Homepage = () => {
   const chartRef = useRef(null);
 
   useEffect(() => {
@@ -20,14 +20,16 @@ const ChartComponent = () => {
           label: 'Waste Composition',
           data: [280, 75, 20, 15],
           backgroundColor: [
-            'rgba(255, 99, 132, 0.8)', 
-            'rgba(54, 162, 235, 0.8)', 
-            'rgba(255, 206, 86, 0.8)', 
-            'rgba(75, 192, 192, 0.8)'
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(255, 206, 86, 0.8)',
+            'rgba(75, 192, 192, 0.8)',
           ],
-          borderColor: 'rgba(255, 255, 255, 1)',
-          borderWidth: 3,
-        }],
+          borderColor: [
+            'rgba(255, 255, 255, 1)'
+          ],
+          borderWidth: 3
+        }]
       },
       options: {
         responsive: true,
@@ -40,11 +42,11 @@ const ChartComponent = () => {
             labels: {
               boxWidth: 20,
               padding: 40,
-              usePointStyle: true,
-            },
-          },
-        },
-      },
+              usePointStyle: true
+            }
+          }
+        }
+      }
     });
 
     return () => {
@@ -56,7 +58,7 @@ const ChartComponent = () => {
 
   return (
     <div className="blue-section">
-      <div className="comp-kbgakxea_r_comp-lwpfzwxa-container">
+      <div id="data-container" className="comp-kbgakxea_r_comp-lwpfzwxa-container">
         <div className="left-panel">
           <div className="title-box">
             <h2>Waste Composition Analysis</h2>
@@ -80,4 +82,4 @@ const ChartComponent = () => {
   );
 };
 
-export default ChartComponent;
+export default Homepage;
