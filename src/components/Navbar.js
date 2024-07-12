@@ -5,10 +5,13 @@ import '../styles/Navbar.css'; // Adjusted path
 const Navbar = () => {
   return (
     <div className="navbar">
-      <Link to="/" className="logo">Logo</Link>
+      <div className="logo">
+        <Link to="/">Logo</Link> {/* Make the logo a link to the home page */}
+      </div>
       <div className="menu">
-        <Link to="/" className="home">Home</Link>
-        <Link to="/wastediv" className="wastediv">Waste Diversion</Link>
+        <Link to="/" className="menu-item">Home</Link>
+        <Link to="/wastediv" className="menu-item">Waste Diversion</Link>
+        <Link to="/sample-images" className="menu-item">Sample Images</Link>
         <Link to="/login" className="login">Log In</Link>
       </div>
     </div>

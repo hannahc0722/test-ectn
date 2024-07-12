@@ -1,7 +1,12 @@
+// src/components/LoginPage.js
+
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/LoginPage.css';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const handleLogin = (event) => {
     event.preventDefault();
     const email = document.getElementById('email').value;
@@ -10,7 +15,7 @@ const LoginPage = () => {
   };
 
   const handleSignUp = () => {
-    alert('Sign Up button clicked');
+    navigate('/create-account');
   };
 
   return (
