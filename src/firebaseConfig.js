@@ -2,9 +2,17 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage'; // Corrected import
+import { getStorage } from 'firebase/storage';
 
-// Make sure to use the environment variables correctly
+// Log the environment variables
+console.log("Firebase environment variables:");
+console.log("API Key:", process.env.REACT_APP_FIREBASE_API_KEY);
+console.log("Auth Domain:", process.env.REACT_APP_FIREBASE_AUTH_DOMAIN);
+console.log("Project ID:", process.env.REACT_APP_FIREBASE_PROJECT_ID);
+console.log("Storage Bucket:", process.env.REACT_APP_FIREBASE_STORAGE_BUCKET);
+console.log("Messaging Sender ID:", process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID);
+console.log("App ID:", process.env.REACT_APP_FIREBASE_APP_ID);
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -20,7 +28,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase services
 const auth = getAuth(app);
 const db = getFirestore(app);
-const storage = getStorage(app); // Corrected initialization
+const storage = getStorage(app);
 
 console.log("Firebase initialized with config:", firebaseConfig);
 

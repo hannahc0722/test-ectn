@@ -1,5 +1,3 @@
-// src/App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -7,7 +5,8 @@ import WasteComp from './components/WasteComp';
 import WasteDiv from './components/WasteDiv';
 import LoginPage from './components/LoginPage';
 import SampleImages from './components/SampleImages';
-import CreateAccount from './components/CreateAccount'; // Import CreateAccount component
+import CreateAccount from './components/CreateAccount';
+import Welcome from './components/Welcome';
 
 const App = () => {
   return (
@@ -19,7 +18,8 @@ const App = () => {
           <Route path="/wastediv" element={<WasteDiv />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sample-images" element={<SampleImages />} />
-          <Route path="/create-account" element={<CreateAccount />} /> {/* Add this line */}
+          <Route path="/create-account" element={<CreateAccount />} />
+          <Route path="/welcome" element={<Welcome />} />
         </Routes>
       </div>
     </Router>

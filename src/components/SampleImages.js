@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
 import '../styles/SampleImages.css';
 import { storage } from '../firebaseConfig';
@@ -7,8 +8,22 @@ const SampleImages = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [system, setSystem] = useState('AGH');
-  const [camera, setCamera] = useState('camera1');
+  const [camera, setCamera] = useState('Cam1');
   const [date, setDate] = useState('');
+
+  const auth = getAuth();
+
+  // Example authentication
+  useEffect(() => {
+    signInWithEmailAndPassword(auth, 'your_email@example.com', 'your_password')
+      .then((userCredential) => {
+        console.log('User signed in:', userCredential.user);
+        fetchImages(`${system}/${camera}/${date}`);
+      })
+      .catch((error) => {
+        console.error('Error signing in:', error);
+      });
+  }, [system, camera, date]);
 
   const fetchImages = async (path) => {
     setLoading(true);
@@ -29,10 +44,6 @@ const SampleImages = () => {
     }
   };
 
-  useEffect(() => {
-    fetchImages(`${system}/${camera}/${date}`);
-  }, [system, camera, date]);
-
   const handleFilter = (event) => {
     event.preventDefault();
     fetchImages(`${system}/${camera}/${date}`);
@@ -40,7 +51,7 @@ const SampleImages = () => {
 
   const handleClearFilters = () => {
     setSystem('AGH');
-    setCamera('camera1');
+    setCamera('Cam1');
     setDate('');
     fetchImages('');
   };
@@ -58,8 +69,8 @@ const SampleImages = () => {
         <div className="form-group">
           <label htmlFor="camera">Camera:</label>
           <select id="camera" className="custom-select" value={camera} onChange={(e) => setCamera(e.target.value)}>
-            <option value="camera1">Camera 1</option>
-            <option value="camera2">Camera 2</option>
+            <option value="Cam1">Cam1</option>
+            <option value="Cam2">Cam2</option>
           </select>
         </div>
         <div className="form-group">
