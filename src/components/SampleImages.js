@@ -1,6 +1,9 @@
+// src/components/SampleImages.js
+'use client'
 import React, { useState, useEffect } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
+import { useNavigate } from 'react-router-dom';
 import '../styles/SampleImages.css';
 import { storage } from '../firebaseConfig';
 
@@ -10,20 +13,20 @@ const SampleImages = () => {
   const [system, setSystem] = useState('AGH');
   const [camera, setCamera] = useState('Cam1');
   const [date, setDate] = useState('');
+  const navigate = useNavigate();
 
   const auth = getAuth();
-
-  // Example authentication
   useEffect(() => {
-    signInWithEmailAndPassword(auth, 'your_email@example.com', 'your_password')
-      .then((userCredential) => {
-        console.log('User signed in:', userCredential.user);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate('/login'); // Redirect to login page if not authenticated
+      } else {
         fetchImages(`${system}/${camera}/${date}`);
-      })
-      .catch((error) => {
-        console.error('Error signing in:', error);
-      });
-  }, [system, camera, date]);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, navigate, system, camera, date]);
 
   const fetchImages = async (path) => {
     setLoading(true);

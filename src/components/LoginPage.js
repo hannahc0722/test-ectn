@@ -1,17 +1,24 @@
 // src/components/LoginPage.js
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import '../styles/LoginPage.css';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const auth = getAuth();
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    alert(`Email: ${email}, Password: ${password}`);
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/hello'); // Redirect to Hello page upon successful login
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
   };
 
   const handleSignUp = () => {

@@ -7,8 +7,10 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import '../styles/CreateAccount.css';
 
+//this page does not navigate to welcome for some reason
+
 const CreateAccount = () => {
-  const navigate = useNavigate(); // Use useNavigate for navigation
+  const navigate = useNavigate();
 
   return (
     <div className="container">
@@ -32,8 +34,6 @@ const CreateAccount = () => {
         })}
         onSubmit={async (values, { setSubmitting }) => {
           try {
-            console.log("Submitting form with values:", values);
-
             const userCredential = await createUserWithEmailAndPassword(
               auth,
               values.email,
@@ -41,19 +41,17 @@ const CreateAccount = () => {
             );
             const user = userCredential.user;
 
-            console.log('User created:', user);
-
-            // Store user information in Firestore
             await setDoc(doc(db, 'users', user.uid), {
               email: values.email
             });
 
-            console.log(`User ${user.email} created successfully! Navigating to welcome page...`);
-            
-            navigate('/welcome'); // Navigate to the welcome page immediately
+            navigate('/welcome');
           } catch (error) {
-            console.error("Error creating user:", error);
-            alert(`Error creating user: ${error.message}`);
+            if (error.code === 'auth/email-already-in-use') {
+              alert('This email is already in use. Please try logging in.');
+            } else {
+              alert(`Error creating user: ${error.message}`);
+            }
           } finally {
             setSubmitting(false);
           }
